@@ -3,7 +3,7 @@ class InvestorsController < ApplicationController
 
     get '/investor/:slug' do
       investor = Investor.find_by_slug(params[:slug])
-      erb :'/investments/show'
+      erb :'/investors/show'
     end
   
   
@@ -16,30 +16,30 @@ class InvestorsController < ApplicationController
     end
   
     post "/signup" do
-      redirect '/tweets' if is_logged_in?
-      if params[:username] == "" || params[:email] == "" || params[:password] == ""
+      redirect '/investments' if is_logged_in?
+      if params[:first_name] == "" || params[:last_name] == "" || params[:email] == "" || params[:password] == ""
   
         redirect '/signup'
       else
-        user = User.create(params)
-        session[:user_id] = user.id
-        redirect '/tweets'
+        investor = Investor.create(params)
+        session[:investor_id] = investor.id
+        redirect '/investments'
       end
     end
   
     get '/login' do
       if !is_logged_in?
-        erb :'users/login'
+        erb :'investors/login'
       else
-        redirect '/tweets'
+        redirect '/investments'
       end
     end
   
-    post '/login' do
-      @user = User.find_by(username: params[:username])
-      if @user && @user.authenticate(params[:password])
-        session[:user_id] = @user.id
-        redirect '/tweets'
+    post '/investments' do
+      @investor = Investment.find_by(email: params[:email])
+      if @investor && @investor.authenticate(params[:password])
+        session[:investor_id] = @investor.id
+        redirect '/investments'
       else
         redirect '/signup'
       end

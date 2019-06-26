@@ -79,7 +79,7 @@ class InvestmentsController < ApplicationController
             redirect to '/investments'
           end
         else
-          redirect to '/investments'
+          redirect to '/login'
         end
       end
     end
