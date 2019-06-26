@@ -36,7 +36,7 @@ class InvestorsController < ApplicationController
     end
   
     post '/investments' do
-      @investor = Investment.find_by(email: params[:email])
+      @investor = Investor.find_by(email: params[:email])
       if @investor && @investor.authenticate(params[:password])
         session[:investor_id] = @investor.id
         redirect '/investments'

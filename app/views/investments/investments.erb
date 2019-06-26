@@ -1,0 +1,12 @@
+<html>
+<body>
+
+  <h1>Hello,<h1>
+
+    <%@investments.each do |investment|%>
+      <%=investment.company_name%>
+      <%=investment.amount_invested%>
+      <%=investment.years_until_return%>
+    <%end%>
+</body>
+</html>

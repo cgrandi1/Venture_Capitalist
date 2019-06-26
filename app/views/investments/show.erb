@@ -1,0 +1,27 @@
+
+  <h1><%=@investment.company_name%></h1>
+    <p>%=@investment.amount_invested%></p>
+    <p>%=@investment.years_until_return%></p>
+
+
+  <form action='/investments/<%=@investment.id%>' method='post'>
+    <input type="hidden" name="_method" value="delete">
+
+    <input type="submit" value="Delete Investment">
+
+  </form>
+
+  <form action='/investments/<%=@investment.id%>' method="post">
+    <input type="hidden" name="_method" value="patch">
+    <input type="text" id="company_name" name="company_name">
+
+    <input type="hidden" name="_method" value="patch">
+    <input type="text" id="amount_invested" name="amount_invested">
+
+    <input type="hidden" name="_method" value="patch">
+    <input type="text" id="years_until_return" name="years_until_return">
+
+    <input type="submit" value="Edit Tweet">
+
+
+  </form>
