@@ -52,12 +52,12 @@ class InvestmentsController < ApplicationController
     
       patch '/investments/:id' do
         if is_logged_in?
-          if params[:content] == ""
+          if params[:company_name] == "" || params[amount_invested] == "" || params[years_until_return] == ""
             redirect "/investments/#{params[:id]}/edit"
           else
             @investment = Investment.find(params[:id])
             if @investment && @investment.user == current_user
-              @investment.update(content: params[:content])
+              @investment.update(company_name: params[:company_name], amount_invested: params[:amount_invested], years_until_return: params[:8years_until_return])
               # @investment.save
               redirect "/investments/#{@investment.id}"
             else
