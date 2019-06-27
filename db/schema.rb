@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "investor", force: :cascade do |t|
+  create_table "investors", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "email"

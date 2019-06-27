@@ -11,7 +11,7 @@ class InvestorsController < ApplicationController
       if !is_logged_in?
         erb :'/investors/create_investor'
       else
-        redirect '/investments'
+        redirect '/investments/investments'
       end
     end
   
@@ -21,8 +21,9 @@ class InvestorsController < ApplicationController
   
         redirect '/signup'
       else
-        @investor = Investor.create(params)
-        session[:investor_id] = @investor.id
+        
+        investor = Investor.create(params)
+        session[:investor_id] = investor.id
         redirect '/investments'
       end
     end
@@ -35,10 +36,11 @@ class InvestorsController < ApplicationController
       end
     end
   
-    post '/investments' do
+    post '/login' do
       @investor = Investor.find_by(email: params[:email])
       if @investor && @investor.authenticate(params[:password])
         session[:investor_id] = @investor.id
+        @investor.save
         redirect '/investments'
       else
         redirect '/signup'

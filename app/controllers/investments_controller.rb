@@ -21,7 +21,7 @@ class InvestmentsController < ApplicationController
         @investment = Investment.create(params)
         @investment.user = current_user
         @investment.save
-        redirect '/investments'
+        redirect '/investments/new'
       end
     
     
