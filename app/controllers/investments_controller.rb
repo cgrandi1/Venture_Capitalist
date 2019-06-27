@@ -17,7 +17,7 @@ class InvestmentsController < ApplicationController
       end
     
       post '/investments/new' do
-        redirect '/investments/new' if params[:content].empty?
+        redirect '/investments/new' if params[:company_name].empty? || params[:amount_invested].empty? || params[:years_until_return].empty?
         @investment = Investment.create(params)
         @investment.user = current_user
         @investment.save
@@ -52,12 +52,12 @@ class InvestmentsController < ApplicationController
     
       patch '/investments/:id' do
         if is_logged_in?
-          if params[:company_name] == "" || params[amount_invested] == "" || params[years_until_return] == ""
+          if params[:company_name] == "" || params[:amount_invested] == "" || params[:years_until_return] == ""
             redirect "/investments/#{params[:id]}/edit"
           else
             @investment = Investment.find(params[:id])
             if @investment && @investment.user == current_user
-              @investment.update(company_name: params[:company_name], amount_invested: params[:amount_invested], years_until_return: params[:8years_until_return])
+              @investment.update(company_name: params[:company_name], amount_invested: params[:amount_invested], years_until_return: params[:years_until_return])
               # @investment.save
               redirect "/investments/#{@investment.id}"
             else
@@ -82,6 +82,5 @@ class InvestmentsController < ApplicationController
           redirect to '/login'
         end
       end
-    end
 
 end 
