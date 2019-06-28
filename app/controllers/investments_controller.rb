@@ -2,7 +2,7 @@ class InvestmentsController < ApplicationController
     get '/investments' do
         if is_logged_in?
           @investments = Investment.all
-          erb :'/investments/investments'
+          erb :'/investments/index'
         else
           redirect '/login'
         end
@@ -18,16 +18,16 @@ class InvestmentsController < ApplicationController
     
       post '/investments/new' do
         redirect '/investments/new' if params[:company_name].empty? || params[:amount_invested].empty? || params[:years_until_return].empty?
-        @investment = Investment.create(params)
-        @investment.user = current_user
+        @investment = Investment.new(params)
+        @investment.investor = current_user
         @investment.save
-        redirect '/investments/new'
+        redirect '/investments'
       end
     
     
       get '/investments/:id' do
         redirect '/login' if !is_logged_in?
-        @investment = Investment.find(params[:id])
+        @investment = Investment.find(params)
         if current_user.investments.include?(@investment)
           erb :'/investments/show'
         else

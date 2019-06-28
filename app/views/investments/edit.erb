@@ -1,4 +1,4 @@
-<h1>Edited Investment</h1>
+<h1>Edit Investment</h1>
 
 <form action="/investments/<%=@investment.id %>" method="post">
   <input id="hidden" type="hidden" name="_method" value="patch"></input>
@@ -15,6 +15,9 @@
 
 
   <input type="submit" id="submit" value="submit">
+
+  <p><a href="/logout">Log Out</a></p>
+
 </form>
 </body>
 </html>
