@@ -1,5 +1,6 @@
 class InvestmentsController < ApplicationController
-    get '/investments' do
+    
+      get '/investments' do
         if is_logged_in?
           @investments = Investment.all
           erb :'/investments/index'
@@ -15,40 +16,30 @@ class InvestmentsController < ApplicationController
           redirect '/login'
         end
       end
-    
+
       post '/investments/new' do
         redirect '/investments/new' if params[:company_name].empty? || params[:amount_invested].empty? || params[:years_until_return].empty?
-        @investment = Investment.new(params)
+        @investment = Investment.create(company_name: params["company_name"], amount_invested: params["amount_invested"], years_until_return: params["years_until_return"])
         @investment.investor = current_user
         @investment.save
         redirect '/investments'
       end
     
-    
-      get '/investments/:id' do
-        redirect '/login' if !is_logged_in?
-        @investment = Investment.find(params)
-        if current_user.investments.include?(@investment)
-          erb :'/investments/show'
+
+      get '/investments/:id/edit' do
+        if is_logged_in?
+          @investment = Investment.find(params[:id])
+          if @investment && @investment.investor == current_user
+
+          erb :'investments/edit'
         else
           redirect '/login'
         end
+      else
+        redirect '/login'
       end
-    
-        get '/investments/:id/edit' do
-          if is_logged_in?
-            @investment = investment.find(params[:id])
-            if @investment && @investment.user == current_user
-    
-              erb :'investments/edit'
-            else
-              redirect '/login'
-            end
-          else
-            redirect '/login'
-          end
-        end
-    
+    end
+      
     
       patch '/investments/:id' do
         if is_logged_in?
@@ -56,7 +47,7 @@ class InvestmentsController < ApplicationController
             redirect "/investments/#{params[:id]}/edit"
           else
             @investment = Investment.find(params[:id])
-            if @investment && @investment.user == current_user
+            if @investment && @investment.investor == current_user
               @investment.update(company_name: params[:company_name], amount_invested: params[:amount_invested], years_until_return: params[:years_until_return])
               # @investment.save
               redirect "/investments/#{@investment.id}"
@@ -72,7 +63,7 @@ class InvestmentsController < ApplicationController
       delete '/investments/:id' do
         if is_logged_in?
           @investment = Investment.find_by_id(params[:id])
-          if @investment && @investment.user == current_user
+          if @investment && @investment.investor == current_user
             @investment.delete
             redirect to '/investments'
           else
@@ -83,4 +74,9 @@ class InvestmentsController < ApplicationController
         end
       end
 
-end 
+      get '/investments/:id' do
+        redirect '/login' if !is_logged_in?
+          @investment = Investment.find(params[:id])
+          erb :'/investments/show'
+      end 
+    end  

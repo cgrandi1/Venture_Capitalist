@@ -1,5 +1,6 @@
 class InvestorsController < ApplicationController
-  
+
+
     get '/signup' do
       if !is_logged_in?
         erb :'/investors/create_investor'

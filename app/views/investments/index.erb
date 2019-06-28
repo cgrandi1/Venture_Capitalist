@@ -3,19 +3,16 @@
   <h1>Welcome </h1>
 
   <%@investments.each do |investment|%>
-    <p><a href="/investments/#{investments.id}></a>Company Name: <%=investment.company_name%></p> 
+    <li><a href="investments/<%=investment.id%>">Company Name: <%=investment.company_name%></a></li> 
     <p>Amount Invested: <%=investment.amount_invested%></p>
     <p>Years Until Return: <%=investment.years_until_return%></p>
-  
       
   <%end%>
   <p><a href="/investments/#{investments.id}>Click To Edit</a></p><br>
-</body>
-</html>
 
-
-  <p><a href="/investments/new">Click To Add A New Investment</a></p>
+    <p><a href="/investments/new">Click To Add a New Investment</a></p>
 
   <p><a href="/logout">Log Out</a></p>
   
-
+</body>
+</html>
