@@ -1,17 +1,17 @@
 
   <h1><%=@investment.company_name%></h1>
-    <p>%=@investment.amount_invested%></p>
-    <p>%=@investment.years_until_return%></p>
+    <p><%=@investment.amount_invested%></p>
+    <p><%=@investment.years_until_return%></p>
 
 
-  <form action="/investments/<%=@investment.id%>/delete" method='post'>
+  <form action="/investments/<%=@investment.id%>" method='post'>
     <input type="hidden" name="_method" value="delete">
 
     <input type="submit" value="Delete Investment">
 
   </form>
 
-  <form action="/investments/<%=@investment.id%>/edit" method="post">
+  <form action="/investments/<%=@investment.id%>/edit" method="get">
 
     <input type="submit" value="Edit Tweet">
 

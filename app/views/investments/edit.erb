@@ -1,23 +1,23 @@
 <h1>Edit Investment</h1>
 
 <h1><%=@investment.company_name%></h1>
-    <p>%=@investment.amount_invested%></p>
-    <p>%=@investment.years_until_return%></p>
+    <p><%=@investment.amount_invested%></p>
+    <p><%=@investment.years_until_return%></p>
 
 <form action="/investments/<%=@investment.id%>/edit" method="post">
   <input id="hidden" type="hidden" name="_method" value="patch"></input>
 
-  Company Name:
+  <label>Company Name: </label>
   <input type="text" name="investment[company_name]"></input>
   
 
-  Amount Invested:
-  <input type="text" name="investment[amount_invested'"></input>
+  <label>Amount Invested: </label>
+  <input type="text" name="investment[amount_invested]"></input>
 
-  Years Until Return:
+  </label> Years Until Return: </label>
   <input type="text" name="investment[years_until_return]"></input>
 
-  Create Your Investment:
+  <p>Create Your Investment: </p>
 
 
   <input type="submit" id="submit" value="submit">

@@ -1,5 +1,6 @@
 class InvestmentsController < ApplicationController
     
+      
       get '/investments' do
         if is_logged_in?
           @investments = Investment.all
@@ -25,6 +26,12 @@ class InvestmentsController < ApplicationController
         redirect '/investments'
       end
     
+      get '/investments/:id' do    
+        redirect '/login' if !is_logged_in?
+        @investment = Investment.find_by(params)
+        erb :'investments/show' 
+      end 
+     
 
       get '/investments/:id/edit' do
         if is_logged_in?
@@ -41,16 +48,20 @@ class InvestmentsController < ApplicationController
     end
       
     
-      patch '/investments/:id' do
+      patch '/investments/:id/edit' do
         if is_logged_in?
           if params[:company_name] == "" || params[:amount_invested] == "" || params[:years_until_return] == ""
             redirect "/investments/#{params[:id]}/edit"
           else
             @investment = Investment.find(params[:id])
             if @investment && @investment.investor == current_user
-              @investment.update(company_name: params[:company_name], amount_invested: params[:amount_invested], years_until_return: params[:years_until_return])
+              @investment.update(params[:investment])
+              # @investment.company_name = params[:investment][:company_name]
+              # @investment.amount_invested = params[:investment][:amount_invested]
+              # @investment.years_until_return = params[:investment][:years_until_return]
               # @investment.save
-              redirect "/investments/#{@investment.id}"
+              
+              redirect "/investments"
             else
               redirect '/investments'
             end
@@ -73,10 +84,4 @@ class InvestmentsController < ApplicationController
           redirect to '/login'
         end
       end
-
-      get '/investments/:id' do
-        redirect '/login' if !is_logged_in?
-          @investment = Investment.find(params[:id])
-          erb :'/investments/show'
-      end 
-    end  
+    end 

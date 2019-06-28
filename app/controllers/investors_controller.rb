@@ -1,9 +1,8 @@
 class InvestorsController < ApplicationController
 
-
     get '/signup' do
       if !is_logged_in?
-        erb :'/investors/create_investor'
+        erb :'/investors/signup'
       else
          redirect '/investments'
       end
@@ -11,7 +10,7 @@ class InvestorsController < ApplicationController
   
     post "/signup" do
       redirect 'investments' if is_logged_in?
-      if params[:first_name] == "" || params[:last_name] == "" || params[:email] == "" || params[:password] == ""
+      if params[:username] == "" || params[:email] == "" || params[:password] == ""
   
        redirect '/signup'
       else
