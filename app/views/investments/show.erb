@@ -1,7 +1,7 @@
 
-  <h1><%=@investment.company_name%></h1>
-    <p><%=@investment.amount_invested%></p>
-    <p><%=@investment.years_until_return%></p>
+  <h1>Company Name: <%=@investment.company_name%></h1>
+    <p>Amount Invested: <%=@investment.amount_invested%></p>
+    <p>Years Until Return: <%=@investment.years_until_return%></p>
 
 
   <form action="/investments/<%=@investment.id%>" method='post'>
@@ -13,7 +13,7 @@
 
   <form action="/investments/<%=@investment.id%>/edit" method="get">
 
-    <input type="submit" value="Edit Tweet">
+    <input type="submit" value="Edit Investment">
 
 
   </form>

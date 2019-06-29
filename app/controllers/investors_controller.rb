@@ -4,7 +4,7 @@ class InvestorsController < ApplicationController
       if !is_logged_in?
         erb :'/investors/signup'
       else
-         redirect '/investments'
+         redirect "/investments"
       end
     end
   
@@ -24,7 +24,7 @@ class InvestorsController < ApplicationController
       if !is_logged_in?
         erb :'/investors/login'
       else
-        redirect '/investments'
+        redirect "/investments"
       end 
     end
   
